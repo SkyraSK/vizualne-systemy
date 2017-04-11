@@ -172,7 +172,19 @@ void calibrateStereoCamera(Size imageSize) {
     stereoRectify(cameraMatrix[0], distCoeffs[0], cameraMatrix[1], distCoeffs[1], imageSize, R, T, R1, R2, P1, P2, Q, CALIB_ZERO_DISPARITY, 1, imageSize, &validROI[0], &validROI[1]);
     fs.open("extrinsics.yml", FileStorage::WRITE);
     if (fs.isOpened()) {
-        fs << "R" << R << "T" << T << "R1" << R1 << "R2" << R2 << "P1" << P1 << "P2" << P2 << "Q" << Q;
+        fs << "CM1" << cameraMatrix[0];
+		fs << "CM2" << cameraMatrix[1];
+		fs << "D1" << distCoeffs[0];
+		fs << "D2" << distCoeffs[1];
+		fs << "R" << R;
+		fs << "T" << T;
+		fs << "E" << E;
+		fs << "F" << F;
+		fs << "R1" << R1;
+		fs << "R2" << R2;
+		fs << "P1" << P1;
+		fs << "P2" << P2;
+		fs << "Q" << Q;
         fs.release();
     }
     else
@@ -349,5 +361,8 @@ int main(int argc, char** argv) {
             cout<<"-rt should be 0 or 1. Ex: -rt=1\n";
             break;
     }
+    
+    
+    
     return 0;
 }

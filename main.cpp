@@ -42,7 +42,7 @@ int main()
 	
 	Mat map1x, map1y, map2x, map2y, obrazok_lavy_U, obrazok_pravy_U;
 	initUndistortRectifyMap(CM1, D1, R1, P1, obrazok_lavy.size(), CV_32FC1, map1x, map1y);
-    initUndistortRectifyMap(CM2, D2, R2, P2, obrazok_lavy.size(), CV_32FC1, map2x, map2y);
+    initUndistortRectifyMap(CM2, D2, R2, P2, obrazok_pravy.size(), CV_32FC1, map2x, map2y);
     remap(obrazok_lavy, obrazok_lavy_U, map1x, map1y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
     remap(obrazok_pravy, obrazok_pravy_U, map2x, map2y, INTER_LINEAR, BORDER_CONSTANT, Scalar());
     
@@ -53,7 +53,7 @@ int main()
 	imshow("pravy", obrP_grey);
 	waitKey(0);
 	
-	Ptr<StereoBM> sbm = StereoBM::create(112, 9);
+	Ptr<StereoBM> sbm = StereoBM::create(16, 21);
 	
 	Mat disp, disp8;
 	sbm->compute(obrL_grey, obrP_grey, disp);
